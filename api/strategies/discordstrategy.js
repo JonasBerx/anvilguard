@@ -4,14 +4,14 @@ const DiscordUser = require('../models/DiscordUser')
 
 const scopes = ['identify', 'email', 'guilds'];
 
-passport.serializeUser((user,done) => {
+passport.serializeUser((user, done) => {
     done(null, user.id)
 })
 
 passport.deserializeUser(async (id, done) => {
     const user = await DiscordUser.findById(id)
-    if(user){
-        done(null,user)
+    if (user) {
+        done(null, user)
     }
 })
 
@@ -22,8 +22,8 @@ passport.use(new DiscordStrategy({
     scope: scopes
 }, async (accessToken, refreshToken, profile, done) => {
     try {
-        const user = await DiscordUser.findOne({discordId: profile.id});
-        if(user) {
+        const user = await DiscordUser.findOne({ discordId: profile.id });
+        if (user) {
             done(null, user)
         }
         else {
@@ -35,8 +35,8 @@ passport.use(new DiscordStrategy({
             done(null, savedUser)
         }
     } catch (error) {
-        console.log(err);
-        done(err, null)
-        
+        console.log(error);
+        done(error, null)
+
     }
 }))

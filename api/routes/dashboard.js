@@ -1,7 +1,7 @@
 const router = require('express').Router();
 
-function isAuthorized(req,res,next) {
-    if(req.user) {
+function isAuthorized(req, res, next) {
+    if (req.user) {
         console.log("Logged in.");
         next();
     }
@@ -10,9 +10,9 @@ function isAuthorized(req,res,next) {
         res.redirect('/')
     }
 }
-
-router.get('/', isAuthorized, (req, res) => {
-    res.send(200);
+//isAuthorized
+router.get('/', (req, res) => {
+    res.send("API WORKING");
 });
 
 

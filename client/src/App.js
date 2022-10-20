@@ -1,6 +1,9 @@
 import React, { Component } from "react";
 import logo from "./logo.svg";
 import "./App.css";
+import { BrowserRouter } from 'react-router-dom';
+import Navbar from "./components/navbar/Navbar";
+import AppRouter from './router/AppRouter';
 
 class App extends Component {
   constructor(props) {
@@ -21,13 +24,12 @@ class App extends Component {
 
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">{this.state.apiResponse}</h1>
-        </header>
-        <p className="App-intro">{this.state.apiResponse}</p>
-      </div>
+      <BrowserRouter>
+        <Navbar />
+        <div className="App">
+          <AppRouter />
+        </div>
+      </BrowserRouter>
     );
   }
 }

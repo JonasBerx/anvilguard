@@ -11,9 +11,8 @@ function isAuthorized(req, res, next) {
         res.redirect('/')
     }
 }
-//isAuthorized
-router.get('/', isAuthorized, (req, res, next) => {
-    res.redirect('http://localhost:3001/home')
+router.get('/', (req, res, next) => {
+    res.send("gamer")
 });
 
 

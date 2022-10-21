@@ -5,21 +5,12 @@ import { BrowserRouter } from 'react-router-dom';
 import Navbar from "./components/navbar/Navbar";
 import AppRouter from './router/AppRouter';
 
+import Image from '../src/assets/bg.jpg'
+
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = { apiResponse: "" };
-  }
-
-  callAPI() {
-    fetch("http://localhost:3000/dashboard")
-      .then(res => res.text())
-      .then(res => this.setState({ apiResponse: res }))
-      .catch(err => err);
-  }
-
-  componentDidMount() {
-    this.callAPI();
   }
 
   render() {

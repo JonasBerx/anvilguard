@@ -19,7 +19,12 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Image from '../../assets/anvilguard.png'; // Import using relative path
 import '../../assets/output.css'
 import { faDiscord } from '@fortawesome/free-brands-svg-icons'
+import axios from 'axios'
+import paths from '../../router/paths';
+import { redirect, useNavigate } from "react-router-dom";
 
+import { makeStyles } from "@material-ui/styles";
+import ButtonImg from '../../assets/blank_button.png'; // Import using relative path
 function Copyright(props) {
   return (
     <Typography variant="body2" color="text.secondary" align="center" {...props}>
@@ -33,7 +38,19 @@ function Copyright(props) {
   );
 }
 
-const Login = () => {
+const useStyles = makeStyles({
+  buttonStep: {
+    width: "200px",
+    height: "100px",
+    backgroundImage: `url(${ButtonImg})`,
+    backgroundRepeat: "no-repeat",
+    backgroundSize: "cover"
+  }
+});
+
+const Login = (props) => {
+  const classes = useStyles();
+  const { history } = props;
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -44,9 +61,21 @@ const Login = () => {
       password: data.get('password'),
     });
   };
+  let navigate = useNavigate();
+  const oauth_redirect = () => {
+    window.location.href = 'http://localhost:3000/auth';
+  }
+
 
   return (
-    <Container component="main" maxWidth="xs">
+    <Container component="main" maxWidth="xs" sx={{
+      bgcolor: '#4e342e',
+      height: 1,
+      boxShadow: 10,
+      borderRadius: 2,
+      zIndex: '5',
+      color: 'white'
+    }}>
       <CssBaseline />
       <Box
         sx={{
@@ -54,6 +83,8 @@ const Login = () => {
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
+
+
         }}
       >
         <IconButton
@@ -75,13 +106,14 @@ const Login = () => {
           Sign in through Discord
         </Typography>
         <Box>
-          <div className="flex items-center text-white" >
-            <a id="login" href="http://localhost:3000/auth"
-              className="bg-discord-blue  text-xl px-5 py-3 rounded-md font-bold flex items-center space-x-4 hover:bg-gray-600 transition duration-75">
-              <FontAwesomeIcon icon={faDiscord} />
-              <span>Login with Discord</span>
-            </a>
-          </div>
+          <Button
+            type="submit"
+            component={Link}
+            onClick={oauth_redirect}
+            variant="contained"
+          >
+            <FontAwesomeIcon icon={faDiscord} /> <Typography sx={{ margin: 0.5 }}>Login with Discord</Typography>
+          </Button>
         </Box>
         <br />
 
@@ -90,6 +122,8 @@ const Login = () => {
         </Typography>
         <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
           <TextField
+            color="warning"
+            variant="filled"
             margin="normal"
             required
             fullWidth
@@ -98,8 +132,15 @@ const Login = () => {
             name="email"
             autoComplete="email"
             autoFocus
+            InputLabelProps={{
+              style: {
+                color: '#fff'
+              }
+            }}
           />
           <TextField
+            color="warning"
+            variant="filled"
             margin="normal"
             required
             fullWidth
@@ -108,22 +149,33 @@ const Login = () => {
             type="password"
             id="password"
             autoComplete="current-password"
+            InputLabelProps={{
+              style: {
+                color: '#fff'
+              }
+            }}
           />
           <FormControlLabel
             control={<Checkbox value="remember" color="primary" />}
             label="Remember me"
           />
           <Button
+            className={classes.buttonStep}
+            component={Link}
             type="submit"
             fullWidth
-            variant="contained"
-            sx={{ mt: 3, mb: 2 }}
+            sx={{
+              fontFamily: 'LifeCraft',
+              my: 1,
+              color: 'white',
+              fontSize: 30,
+            }}
           >
-            Sign In
+            Sign in
           </Button>
         </Box>
       </Box>
-    </Container>
+    </Container >
   );
 }
 

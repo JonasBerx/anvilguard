@@ -1,27 +1,20 @@
 import * as React from 'react';
-import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 import Link from '@mui/material/Link';
-import Grid from '@mui/material/Grid';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import CssBaseline from "@mui/material/CssBaseline";
-import Divider from '@mui/material/Divider';
-import Chip from '@mui/material/Chip';
 import IconButton from '@mui/material/IconButton';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-// import GoogleLoginHook from './GoogleLoginHook';
 import Image from '../../assets/anvilguard.png'; // Import using relative path
 import '../../assets/output.css'
 import { faDiscord } from '@fortawesome/free-brands-svg-icons'
-import axios from 'axios'
-import paths from '../../router/paths';
-import { redirect, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { useLocation } from 'react-router-dom';
 
 import { makeStyles } from "@material-ui/styles";
 import ButtonImg from '../../assets/blank_button.png'; // Import using relative path
@@ -50,7 +43,7 @@ const useStyles = makeStyles({
 
 const Login = (props) => {
   const classes = useStyles();
-  const { history } = props;
+  const location = useLocation();
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -109,7 +102,7 @@ const Login = (props) => {
           <Button
             type="submit"
             component={Link}
-            onClick={oauth_redirect}
+            href='http://localhost:3000/auth'
             variant="contained"
           >
             <FontAwesomeIcon icon={faDiscord} /> <Typography sx={{ margin: 0.5 }}>Login with Discord</Typography>

@@ -22,6 +22,7 @@ passport.use(new DiscordStrategy({
     scope: scopes
 }, async (accessToken, refreshToken, profile, done) => {
     try {
+        console.log(accessToken);
         const user = await DiscordUser.findOne({ discordId: profile.id });
         if (user) {
             done(null, user)

@@ -19,6 +19,7 @@ db.then(() => console.log("Connected to MongoDB")).catch(err => console.log(err)
 const authRoute = require('./routes/auth');
 const dashboardRoute = require('./routes/dashboard');
 const articleRoute = require('./routes/articles');
+const homeRoute = require('./routes/home');
 
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
@@ -49,6 +50,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 // Middleware routes
+app.use('/', homeRoute)
 app.use('/auth', authRoute);
 app.use('/dashboard', dashboardRoute);
 app.use('/article', articleRoute);

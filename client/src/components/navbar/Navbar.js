@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { Component } from "react";
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -7,24 +7,16 @@ import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import { Link } from 'react-router-dom';
 import Menu from '@mui/material/Menu';
-
-import { makeStyles } from "@material-ui/styles";
-
-
-
-
+import Cookies from 'js-cookie';
 import Image from '../../assets/anvilguard.png'; // Import using relative path
 import ButtonImg from '../../assets/blank_button.png'; // Import using relative path
 import LifeCraft from '../../assets/fonts/LifeCraft_Font.ttf';
+import { useState, useEffect } from 'react';
 
-const menuOptions =
-  [
-    { title: "Home", to: "/" },
-    { title: "About", to: "/about" },
-    { title: "News", to: "/news" },
-    { title: "PVP", to: "/pvp" },
-    { title: "Login", to: "/login" }
-  ]
+import { makeStyles, withStyles } from "@material-ui/styles";
+
+
+
 const useStyles = makeStyles({
   buttonStep: {
     width: "200px",
@@ -35,10 +27,31 @@ const useStyles = makeStyles({
   }
 });
 
+const menuOptions1 =
+  [
+    { title: "Home", to: "/" },
+    { title: "About", to: "/about" },
+    { title: "News", to: "/news" },
+    { title: "PVP", to: "/pvp" },
+    { title: "Login/Logout", to: "/login" }
+  ]
+
+const menuOptions2 =
+  [
+    { title: "Home", to: "/" },
+    { title: "About", to: "/about" },
+    { title: "News", to: "/news" },
+    { title: "PVP", to: "/pvp" },
+    { title: "Login", to: "/login" }
+  ]
 
 
-export default function ButtonAppBar() {
-  const classes = useStyles();
+
+
+
+
+const ButtonAppBar = () => {
+  const classes = useStyles()
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static" style={{ background: '#4e342e' }}>
@@ -68,7 +81,7 @@ export default function ButtonAppBar() {
             justifyContent: 'space-around',
           }}>
 
-            {menuOptions.map(({ title, to }, index) => (
+            {menuOptions1.map(({ title, to }, index) => (
               <Button
                 className={classes.buttonStep}
                 key={`menu_item_btn_${index}`}
@@ -87,6 +100,7 @@ export default function ButtonAppBar() {
           </Box>
         </Toolbar>
       </AppBar>
-    </Box>
+    </Box >
   );
 }
+export default withStyles(useStyles)(ButtonAppBar)

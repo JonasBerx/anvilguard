@@ -9,27 +9,40 @@ import { Box } from "@mui/system";
 import Banner from '../assets/background.png'
 
 
-
-
 class Home extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      apiResponse: "",
+      username: "",
+      discordid: "",
       token: Cookies.get('discord.oauth2')
     };
   }
 
-  // callAPI() {
-  //   fetch("https://discordapp.com/api/users/@me")
-  //     .then(res => res.text())
-  //     .then(res => this.setState({ apiResponse: res }))
-  //     .catch(err => err);
-  // }
+  collectDiscordData() {
+    const urlSearchParams = new URLSearchParams(window.location.search);
+    const username = urlSearchParams.get('username');
+    const discordid = urlSearchParams.get('discordid');
+    if (username && discordid) {
+
+      Cookies.set('username', username);
+      Cookies.set('discordid', discordid);
+
+      this.setState({ username: username })
+      this.setState({ discordid: discordid })
+    }
+    else {
+      this.setState({ username: Cookies.get('username') })
+      this.setState({ discordid: Cookies.get('discordid') })
+    }
+
+  }
 
   componentDidMount() {
-    // this.fetchUser();
+    this.collectDiscordData()
   }
+
+
 
   render() {
     return (
@@ -51,6 +64,9 @@ class Home extends Component {
             <Box sx={{ px: 20 }}>
               <Typography align="center" variant="h6" sx={{ fontFamily: 'Dwarven' }}>
                 Welcome to the Anvilguard Official website.
+              </Typography>
+              <Typography align="center" variant="h6" sx={{ fontFamily: 'Dwarven' }}>
+                {this.state.username} {this.state.discordid}
               </Typography>
             </Box>
 
